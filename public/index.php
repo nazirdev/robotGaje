@@ -55,13 +55,13 @@
                 if($event['type'] === 'message') {
                     if($event['message']['type'] === 'text') {
                         switch($event['message']['text']){
-                            case strtoupper('merah'):
+                            case str_shuffle('merah'):
                                 $result = $bot->replyText($event['replyToken'], 'berhenti');
                                 break;
-                            case 'kuning':
+                            case str_shuffle('kuning'):
                                 $result = $bot->replyText($event['replyToken'], 'siap-siap');
                                 break;
-                            case 'hijau':
+                            case str_shuffle('hijau'):
                                 $result = $bot->replyText($event['replyToken'], 'jalan');
                                 break;
                             default:
