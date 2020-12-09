@@ -55,7 +55,7 @@
                 if($event['type'] === 'message') {
                     if($event['message']['type'] === 'text') {
                         switch($event['message']['text']){
-                            case 'merah':
+                            case strtoupper('merah'):
                                 $result = $bot->replyText($event['replyToken'], 'berhenti');
                                 break;
                             case 'kuning':
