@@ -15,7 +15,7 @@
     use LINE\LINEBot\MessageBuilder\AudioMessageBuilder;
     use LINE\LINEBot\SignatureValidator as SignatureValidator;
 
-    $pass_signature = true;
+    $pass_signature = false;
 
     $channel_access_token = "fDjwD7jbcCj/FOBS3Ff2nkLBKcmoUX23LceGllYMRaJeP8L0WVjYvAp0n6hwTfj2ODYGIoHE2iC0nP/4bBibC0WsA2rpUtmGOcYYLcMSqL4fKQt1wjpxNlFpXwRqCNhLfnylId+1jb+XJgHIiHE8WQdB04t89/1O/w1cDnyilFU=";
     $channel_secret = "cd6704f32bb1f9ae16d3ac3bda61189f";
