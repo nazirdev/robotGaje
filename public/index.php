@@ -46,7 +46,24 @@
                 return $response->withStatus(400, 'Invalid Signature');
             }
         }
-        // kode program disini
+        
+        // reply message
+        $data = json_decode($body, true);
+
+        if(is_array($data['events'])){
+            foreach($data['events'] as $event) {
+                if($event['type'] === 'message') {
+                    if($event['message']['type'] === 'text') {
+                        $result = $bot->replyText($event['replyToken'], $event['message']['text']);
+                        $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
+                        return $response
+                            ->withHeader('Content-Type', 'application/json')
+                            ->withStatus($result->getHTTPStatus());
+                    }
+                }
+            }
+        }
+
     });
 
     $app->run();
