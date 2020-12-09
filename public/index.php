@@ -54,7 +54,7 @@
             foreach($data['events'] as $event) {
                 if($event['type'] === 'message') {
                     if($event['message']['type'] === 'text') {
-                        $textMessageBuilder = new TextMessageBuilder("Hello Gan");
+                        $textMessageBuilder = new TextMessageBuilder('Aku tahu, kamu mau ngomong ? '. $event['message']['text']);
                         $result = $bot->replyMessage($event['replyToken'], $textMessageBuilder);
                         $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
                         return $response
