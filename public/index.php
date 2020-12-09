@@ -54,7 +54,20 @@
             foreach($data['events'] as $event) {
                 if($event['type'] === 'message') {
                     if($event['message']['type'] === 'text') {
-                        $result = $bot->replyText($event['replyToken'], $event['message']['text']);
+                        switch($event['message']['text']){
+                            case 'merah':
+                                $result = $bot->replyText($event['replyToken'], 'berhenti');
+                                break;
+                            case 'kuning':
+                                $result = $bot->replyText($event['replyToken'], 'siap-siap');
+                                break;
+                            case 'hijau':
+                                $result = $bot->replyText($event['replyToken'], 'jalan');
+                                break;
+                            default:
+                                $result = $bot->replyText($event['replyToken'], 'Anda kena Tilang');
+                                break;
+                        };
                         $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
                         return $response
                             ->withHeader('Content-Type', 'application/json')
