@@ -61,7 +61,21 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
                         return $response
                             ->withHeader('Content-Type', 'application/json')
                             ->withStatus($result->getHTTPStatus());
-                    }
+                    }else if(
+                        $event['message']['type'] === 'image' ||
+                        $event['message']['type'] === 'video' ||
+                        $event['message']['type'] === 'audio' ||
+                        $event['message']['type'] === 'file'
+                    ){
+                        $contentUrl = "https://nazibot65.herokuapp.com/public/content/".$event['message']['id'];
+                        $contentType = ucfirst($event['message']['type']);
+
+                        $result = $bot->replyText($event['token'], $contentType. " Yang anda kirim bisa diakses melalui link \n: ".$contentUrl);
+
+                        $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
+                        return $response
+                            ->withStatus($result->getHTTPStatus());
+                    };
                 }
             }
         }
@@ -101,6 +115,16 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
         $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
         return $response
             ->withHeader('Content-Type', 'application/json')
+            ->withStatus($result->getHTTPStatus());
+    });
+
+    $app->get('/content/{messageId}', function(Request $request, Response $response, $args) use ($bot){
+        $messageId = $args['messageId'];
+        $result = $bot->getMessageContent($messageId);
+
+        $response->getBody()->write($result->getRawBody());
+        return $response
+            ->withHeader('Content-Type', $result->getHeader('Content-Type'))
             ->withStatus($result->getHTTPStatus());
     });
 
