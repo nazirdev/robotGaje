@@ -79,6 +79,19 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
             ->withStatus($result->getHTTPStatus());
     });
 
+    $app->get('/multicast', function(Request $request, Response $response) use ($bot) {
+        $listUser = [
+            "Ud6dbd897bda0efc122d39fd1aec64f7f"
+        ];
+
+        $textMessageBuilder = new TextMessageBuilder("Pesan ini dikirim melalui teks message builder");
+
+        $result = $bot->multicast($listUser, $textMessageBuilder);
+
+        return $response
+            ->withStatus($result->getHTTPStatus());
+    });
+
     $app->run();
 
 ?>
