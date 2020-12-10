@@ -100,6 +100,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 
         $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
         return $response
+            ->withHeader('Content-Type', 'application/json')
             ->withStatus($result->getHTTPStatus());
     });
 
