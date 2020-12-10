@@ -70,7 +70,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
                         $contentUrl = "https://nazibot65.herokuapp.com/public/content/".$event['message']['id'];
                         $contentType = ucfirst($event['message']['type']);
 
-                        $result = $bot->replyText($event['token'], $contentType. " Yang anda kirim bisa diakses melalui link \n: ".$contentUrl);
+                        $result = $bot->replyText($event['replyToken'], $contentType. " Yang anda kirim bisa diakses melalui link \n: ".$contentUrl);
 
                         $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
                         return $response
