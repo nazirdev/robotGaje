@@ -88,6 +88,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 
         $result = $bot->multicast($listUser, $textMessageBuilder);
 
+        $response->getBody()->write("MultiCast berhasil diterapkan");
         return $response
             ->withStatus($result->getHTTPStatus());
     });
