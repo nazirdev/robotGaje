@@ -7,7 +7,8 @@
     use Slim\Factory\AppFactory;
 
     use LINE\LINEBot;
-    use LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use LINE\LINEBot\Event\MessageEvent\StickerMessage;
+use LINE\LINEBot\HTTPClient\CurlHTTPClient;
     use LINE\LINEBot\MessageBuilder\MultiMessageBuilder;
     use LINE\LINEBot\MessageBuilder\StickerMessageBuilder;
     use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
@@ -68,8 +69,12 @@
 
     $app->get('/pushmessage', function(Request $request, Response $response) use ($bot) {
         $userId = "Ud6dbd897bda0efc122d39fd1aec64f7f";
-        $textMessageBuilder = new TextMessageBuilder("Pesan dari pushmessage");
-        $result = $bot->pushMessage($userId, $textMessageBuilder);
+
+        $packageId = 6;
+        $stickerId = 1;
+
+        $stickerMessageBuilder = new StickerMessageBuilder($packageId, $stickerId);
+        $result = $bot->pushMessage($userId, $stickerMessageBuilder);
 
         $response->getBody()->write("Pesan berhsasil dikirim");
         return $response
