@@ -70,7 +70,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
     $app->get('/pushmessage', function(Request $request, Response $response) use ($bot) {
         $userId = "Ud6dbd897bda0efc122d39fd1aec64f7f";
 
-        $stickerMessageBuilder = new StickerMessageBuilder(6, 1);
+        $stickerMessageBuilder = new StickerMessageBuilder('6', '1');
         $result = $bot->pushMessage($userId, $stickerMessageBuilder);
 
         $response->getBody()->write("Pesan berhsasil dikirim");
