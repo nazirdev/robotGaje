@@ -64,7 +64,17 @@
                 }
             }
         }
+    });
 
+    $app->post('/pushmessage', function(Request $request, Response $response) use ($bot) {
+        $userId = "Ud6dbd897bda0efc122d39fd1aec64f7f";
+        $textMessageBuilder = new TextMessageBuilder("Pesan dari pushmessage");
+        $result = $bot->pushMessage($userId, $textMessageBuilder);
+
+        $response->getBody()->write("Pesan berhsasil dikirim");
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus($result->getHTTPStatus());
     });
 
     $app->run();
