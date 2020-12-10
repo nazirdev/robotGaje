@@ -54,32 +54,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
         if(is_array($data['events'])){
             foreach($data['events'] as $event) {
                 if($event['type'] === 'message') {
-                    // if($event['message']['type'] === 'text') {
-                    //     $textMessageBuilder = new TextMessageBuilder('Aku tahu, kamu pasti mau ngomong ? '. $event['message']['text']);
-                    //     $result = $bot->replyMessage($event['replyToken'], $textMessageBuilder);
-                    //     $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
-                    //     return $response
-                    //         ->withHeader('Content-Type', 'application/json')
-                    //         ->withStatus($result->getHTTPStatus());
-                    // }else if(
-                    //     $event['message']['type'] === 'image' ||
-                    //     $event['message']['type'] === 'video' ||
-                    //     $event['message']['type'] === 'audio' ||
-                    //     $event['message']['type'] === 'file'
-                    // ){
-                    //     $contentUrl = "https://nazibot65.herokuapp.com/public/content/".$event['message']['id'];
-                    //     $contentType = ucfirst($event['message']['type']);
-
-                    //     $result = $bot->replyText($event['replyToken'], $contentType. " Yang anda kirim bisa diakses melalui link \n: ".$contentUrl);
-
-                    //     $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
-                    //     return $response
-                    //         ->withStatus($result->getHTTPStatus());
-                    // };
-                    if (
-                        $event['source']['type'] == 'group' or
-                        $event['source']['type'] == 'room'
-                    ) {
+                    if ($event['source']['type'] == 'group' || $event['source']['type'] == 'room') {
                         //message from group / room
                         if ($event['source']['userId']) {
                      
@@ -96,11 +71,28 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
                         }
                     } else {
                         //message from single user
-                        $result = $bot->replyText($event['replyToken'], $event['message']['text']);
-                        $response->getBody()->write((string)$result->getJSONDecodedBody());
-                        return $response
-                            ->withHeader('Content-Type', 'application/json')
-                            ->withStatus($result->getHTTPStatus());
+                        if($event['message']['type'] === 'text') {
+                                $textMessageBuilder = new TextMessageBuilder('Aku tahu, kamu pasti mau ngomong ? '. $event['message']['text']);
+                                $result = $bot->replyMessage($event['replyToken'], $textMessageBuilder);
+                                $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
+                                return $response
+                                    ->withHeader('Content-Type', 'application/json')
+                                    ->withStatus($result->getHTTPStatus());
+                            }else if(
+                                $event['message']['type'] === 'image' ||
+                                $event['message']['type'] === 'video' ||
+                                $event['message']['type'] === 'audio' ||
+                                $event['message']['type'] === 'file'
+                            ){
+                                $contentUrl = "https://nazibot65.herokuapp.com/public/content/".$event['message']['id'];
+                                $contentType = ucfirst($event['message']['type']);
+        
+                                $result = $bot->replyText($event['replyToken'], $contentType. " Yang anda kirim bisa diakses melalui link \n: ".$contentUrl);
+        
+                                $response->getBody()->write(json_encode($result->getJSONDecodedBody()));
+                                return $response
+                                    ->withStatus($result->getHTTPStatus());
+                            };
                     }
                 }
             }
