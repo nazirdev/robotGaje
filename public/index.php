@@ -93,7 +93,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
             ->withStatus($result->getHTTPStatus());
     });
 
-    $app->get('/profil', function(Request $request, Response $response, $args) use ($bot) {
+    $app->get('/profil/{userId}', function(Request $request, Response $response, $args) use ($bot) {
         $userId = $args["userId"];
 
         $result = $bot->getProfile($userId);
